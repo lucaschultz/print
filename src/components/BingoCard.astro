@@ -1,0 +1,67 @@
+---
+interface Props {
+  items: string[];
+  cardNumber: number;
+}
+
+const { items, cardNumber } = Astro.props;
+
+const gridItems = items;
+---
+
+<div class="font-serif w-full h-full p-6 bg-white">
+  <div class="h-full border border-black rounded-2xl p-6 flex flex-col justify-between bg-white relative">
+    
+    <!-- Name field in bottom right corner -->
+    <div class="absolute -bottom-px right-4 bg-white px-2 flex items-end gap-2">
+      <span class="text-[9px] text-black uppercase tracking-wide leading-none translate-y-[1px]">Name:</span>
+      <div class="w-36 border-b border-dashed border-black"></div>
+    </div>
+
+    <!-- Header -->
+    <div class="text-center mt-4">
+      <!-- Decorative divider above -->
+      <div class="flex items-center justify-center gap-3 mb-3 max-w-[280px] mx-auto">
+        <div class="h-px bg-black flex-1"></div>
+        <span class="text-[10px] tracking-[0.2em] uppercase">Großeltern</span>
+        <div class="h-px bg-black flex-1"></div>
+      </div>
+      
+      <h1 class="text-4xl text-black tracking-wide uppercase">Bingo</h1>
+      
+      <!-- Decorative divider below -->
+      <div class="flex items-center justify-center gap-3 mt-3 max-w-[280px] mx-auto">
+        <div class="h-px bg-black flex-1"></div>
+        <span class="text-[10px] tracking-[0.2em] uppercase">Frühvergreiste Edition</span>
+        <div class="h-px bg-black flex-1"></div>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="text-center">
+      <p class="text-xs text-black max-w-[85%] mx-auto leading-relaxed italic">
+        Oma fragt schon wieder, ob du genug isst? Opa erzählt zum 100. Mal die gleiche Geschichte? Wenn du eine Reihe oder Diagonale voll hast, ruf laut "Bingo!" und verteile 4 Shots an die Übeltäter. 
+      </p>
+    </div>
+
+    <!-- Bingo Grid -->
+    <div class="bingo-grid mx-auto w-full">
+      <div class="aspect-square grid grid-cols-4 grid-rows-4 gap-2">
+        {gridItems.map((item) => (
+          <div 
+            class="aspect-square flex items-center justify-center text-center p-2 bg-white border border-black text-[11px] leading-tight text-black"
+          >
+            <span class="break-words hyphens-auto">{item}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .bingo-card {
+    box-sizing: border-box;
+  }
+</style>

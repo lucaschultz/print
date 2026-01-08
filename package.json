@@ -9,6 +9,12 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.16.7"
+    "@astrojs/tailwind": "^6.0.2",
+    "@fontsource/instrument-serif": "^5.2.8",
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/source-serif-4": "^5.2.9",
+    "astro": "^5.16.7",
+    "paper-css": "^0.4.1",
+    "tailwindcss": "^3.4.19"
   }
 }
