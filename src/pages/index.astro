@@ -1,16 +1,10 @@
 ---
-import BingoCard from '../components/BingoCard.astro';
 import Layout from '../layouts/Layout.astro';
-import { generateBingoCards } from '../data/bingoItems';
 
-// Generate 40 unique bingo cards on each page load
-const bingoCards = generateBingoCards(40);
+// Redirect to grandparent-bullshit as the main page
+return Astro.redirect('/grandparent-bullshit');
 ---
 
 <Layout>
-	{bingoCards.map((items, index) => (
-		<section class="sheet">
-			<BingoCard items={items} cardNumber={index + 1} />
-		</section>
-	))}
+	<p>Redirecting...</p>
 </Layout>

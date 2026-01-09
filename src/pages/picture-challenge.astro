@@ -1,0 +1,33 @@
+---
+import BingoCard from '../components/BingoCard.astro';
+import Layout from '../layouts/Layout.astro';
+import { generateBingoCards, pictureChallengeItems } from '../data/bingoItems';
+
+// Generate 40 unique bingo cards on each page load
+const bingoCards = generateBingoCards(pictureChallengeItems, 40);
+
+// Group cards into pairs for A4 landscape sheets
+const sheets: string[][][] = [];
+for (let i = 0; i < bingoCards.length; i += 2) {
+	sheets.push(bingoCards.slice(i, i + 2));
+}
+---
+
+<Layout>
+	{sheets.map((sheetCards, sheetIndex) => (
+		<section class="sheet">
+			{sheetCards.map((items, cardIndex) => (
+				<div class="bingo-cell">
+					<BingoCard 
+						items={items} 
+						cardNumber={sheetIndex * 2 + cardIndex + 1}
+						topTitle="Foto Challenge"
+						bottomTitle="Oma & Opa Edition"
+						description={`Mach ein Foto mit... Wer zuerst eine Reihe oder Diagonale voll hat, ruft "Bingo!" und verteilt 4 Shots. Fotos müssen bewiesen werden!`}
+            qrCodeUrl='https://test.com'
+					/>
+				</div>
+			))}
+		</section>
+	))}
+</Layout>

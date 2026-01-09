@@ -1,16 +1,46 @@
 ---
+import QRCode from 'qrcode';
+
 interface Props {
   items: string[];
   cardNumber: number;
+  topTitle?: string;
+  bottomTitle?: string;
+  description?: string;
+  qrCodeUrl?: string;
 }
 
-const { items, cardNumber } = Astro.props;
+const { 
+  items, 
+  cardNumber, 
+  topTitle = "Großeltern",
+  bottomTitle = "Frühvergreiste Edition",
+  description = "Oma fragt schon wieder, ob du genug isst? Opa erzählt zum 100. Mal die gleiche Geschichte? Wenn du eine Reihe oder Diagonale voll hast, ruf laut \"Bingo!\" und verteile 4 Shots.",
+  qrCodeUrl
+} = Astro.props;
 
 const gridItems = items;
+
+// Generate QR code as data URL if URL is provided
+let qrCodeDataUrl: string | null = null;
+let jokerIndex: number | null = null;
+
+if (qrCodeUrl) {
+  qrCodeDataUrl = await QRCode.toDataURL(qrCodeUrl, {
+    width: 120,
+    margin: 0,
+    color: {
+      dark: '#000000',
+      light: '#ffffff'
+    }
+  });
+  // Random position for QR code joker (0-15 for 4x4 grid)
+  jokerIndex = Math.floor(Math.random() * 16);
+}
 ---
 
 <div class="font-serif w-full h-full p-6 bg-white">
-  <div class="h-full border border-black rounded-2xl p-6 flex flex-col justify-between bg-white relative">
+  <div class="h-full border border-black rounded-2xl p-6 flex flex-col justify-between bg-white relative overflow-visible">
     
     <!-- Name field in bottom right corner -->
     <div class="absolute -bottom-px right-4 bg-white px-2 flex items-end gap-2">
@@ -23,7 +53,7 @@ const gridItems = items;
       <!-- Decorative divider above -->
       <div class="flex items-center justify-center gap-3 mb-3 max-w-[280px] mx-auto">
         <div class="h-px bg-black flex-1"></div>
-        <span class="text-[10px] tracking-[0.2em] uppercase">Großeltern</span>
+        <span class="text-[10px] tracking-[0.2em] uppercase">{topTitle}</span>
         <div class="h-px bg-black flex-1"></div>
       </div>
       
@@ -32,27 +62,36 @@ const gridItems = items;
       <!-- Decorative divider below -->
       <div class="flex items-center justify-center gap-3 mt-3 max-w-[280px] mx-auto">
         <div class="h-px bg-black flex-1"></div>
-        <span class="text-[10px] tracking-[0.2em] uppercase">Frühvergreiste Edition</span>
+        <span class="text-[10px] tracking-[0.2em] uppercase">{bottomTitle}</span>
         <div class="h-px bg-black flex-1"></div>
       </div>
     </div>
 
     <!-- Description -->
     <div class="text-center">
-      <p class="text-xs text-black max-w-[85%] mx-auto leading-relaxed italic">
-        Oma fragt schon wieder, ob du genug isst? Opa erzählt zum 100. Mal die gleiche Geschichte? Wenn du eine Reihe oder Diagonale voll hast, ruf laut "Bingo!" und verteile 4 Shots an die Übeltäter. 
+      <p class="text-xs text-black max-w-[85%] mx-auto leading-relaxed text-pretty italic">
+        {description}
       </p>
     </div>
 
     <!-- Bingo Grid -->
     <div class="bingo-grid mx-auto w-full">
       <div class="aspect-square grid grid-cols-4 grid-rows-4 gap-2">
-        {gridItems.map((item) => (
-          <div 
-            class="aspect-square flex items-center justify-center text-center p-2 bg-white border border-black text-[11px] leading-tight text-black"
-          >
-            <span class="break-words hyphens-auto">{item}</span>
-          </div>
+        {gridItems.map((item, index) => (
+          index === jokerIndex && qrCodeDataUrl ? (
+            <div 
+              class="aspect-square relative flex items-center justify-center text-center p-1 bg-white border border-black"
+            >
+              <img src={qrCodeDataUrl} alt="QR Code Joker" class="w-[85%] h-auto object-contain" />
+              <span class="absolute -bottom-[5px] left-1/2 -translate-x-1/2 bg-white px-1 text-[7px] uppercase tracking-wider font-semibold">Joker</span>
+            </div>
+          ) : (
+            <div 
+              class="aspect-square flex items-center justify-center text-center p-2 bg-white border border-black text-[11px] leading-tight text-black"
+            >
+              <span class="break-words hyphens-auto">{item}</span>
+            </div>
+          )
         ))}
       </div>
     </div>

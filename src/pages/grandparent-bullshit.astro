@@ -1,0 +1,32 @@
+---
+import BingoCard from '../components/BingoCard.astro';
+import Layout from '../layouts/Layout.astro';
+import { generateBingoCards, grandparentBullshitItems } from '../data/bingoItems';
+
+// Generate 40 unique bingo cards on each page load
+const bingoCards = generateBingoCards(grandparentBullshitItems, 40);
+
+// Group cards into pairs for A4 landscape sheets
+const sheets: string[][][] = [];
+for (let i = 0; i < bingoCards.length; i += 2) {
+	sheets.push(bingoCards.slice(i, i + 2));
+}
+---
+
+<Layout>
+	{sheets.map((sheetCards, sheetIndex) => (
+		<section class="sheet">
+			{sheetCards.map((items, cardIndex) => (
+				<div class="bingo-cell">
+					<BingoCard 
+						items={items} 
+						cardNumber={sheetIndex * 2 + cardIndex + 1}
+						topTitle="Großeltern"
+						bottomTitle="Frühvergreiste Edition"
+						description={`Oma fragt schon wieder, ob du genug isst? Opa erzählt zum 100. Mal die gleiche Geschichte? Wenn du eine Reihe oder Diagonale voll hast, ruf laut "Bingo!" und verteile 4 Shots.`}
+					/>
+				</div>
+			))}
+		</section>
+	))}
+</Layout>
