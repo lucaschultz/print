@@ -1,0 +1,105 @@
+---
+import CircularText from "./CircularText.astro";
+
+interface Props {
+  place: 1 | 2 | 3;
+  title: string;
+  titleAccessories?: {
+    top?: string;
+    bottom?: string;
+  };
+  description: string;
+}
+
+const { place, title, titleAccessories, description } = Astro.props;
+
+const placeDescription = {
+  1: "Erster Platz",
+  2: "Zweiter Platz",
+  3: "Dritter Platz",
+}[place];
+
+const circularText = placeDescription;
+---
+
+<div class="font-serif w-full h-full p-10">
+  <div
+    class="h-full border-2 border-black rounded-2xl p-8 flex flex-col items-center relative justify-around"
+  >
+    <div class="flex items-center justify-center gap-2">
+      <span class="text-base">✦</span>
+      <div class="w-16 h-px bg-black"></div>
+      <span class="text-base">✦</span>
+      <div class="w-16 h-px bg-black"></div>
+      <span class="text-base">✦</span>
+    </div>
+
+    <div class="text-center flex flex-col gap-4">
+      <div class="w-full relative h-6 flex items-center justify-center isolate">
+        <div class="h-px bg-black absolute inset-x-0 top-1/2"></div>
+        {titleAccessories?.top && (
+          <span class="text-xs tracking-[0.25em] uppercase px-2 bg-white z-10">
+            {titleAccessories.top}
+          </span>
+        )}
+      </div>
+
+      <h1 class="text-5xl text-black tracking-[0.15em] uppercase">{title}</h1>
+
+      <div class="w-full relative h-6 flex items-center justify-center isolate">
+        <div class="h-px bg-black absolute inset-x-0 top-1/2"></div>
+        {titleAccessories?.bottom && (
+          <span class="text-xs tracking-[0.25em] uppercase px-2 bg-white z-10">
+            {titleAccessories.bottom}
+          </span>
+        )}
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center justify-center">
+      <div class="size-52 relative flex items-center justify-center">
+        <div class="absolute inset-0 border-2 border-black rounded-full"></div>
+        <CircularText text={circularText} id={`circlePath-${place}`} />
+
+        <div
+          class="size-28 border-2 border-black rounded-full flex items-center justify-center bg-white"
+        >
+          <span class="text-5xl font-semibold leading-none">{`${place}`}</span>
+        </div>
+      </div>
+    </div>
+
+    <p
+      class="text-base text-pretty text-center italic max-w-[80%] leading-relaxed"
+    >
+      {description}
+    </p>
+
+    <div class="flex gap-3 mx-auto">
+      <span class="text-[9px] uppercase tracking-wide whitespace-nowrap"
+        >Verliehen an:</span
+      >
+      <div class="flex-1 border-b border-black w-80"></div>
+    </div>
+
+    <div class="flex justify-between items-end px-6">
+      <div class="text-center">
+        <div class="w-32 border-b border-black mb-1"></div>
+        <span class="text-[8px] uppercase tracking-wide">Datum</span>
+      </div>
+
+      <div class="text-center">
+        <div class="w-32 border-b border-black mb-1"></div>
+        <span class="text-[8px] uppercase tracking-wide">Unterschrift</span>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-center gap-2">
+      <span class="text-base">✦</span>
+      <div class="w-16 h-px bg-black"></div>
+      <span class="text-base">✦</span>
+      <div class="w-16 h-px bg-black"></div>
+      <span class="text-base">✦</span>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,86 @@
 ---
-import Layout from '../layouts/Layout.astro';
-
-// Redirect to grandparent-bullshit as the main page
-return Astro.redirect('/grandparent-bullshit');
+import '@fontsource/source-serif-4/400.css';
+import '@fontsource/source-serif-4/400-italic.css';
+import '@fontsource/source-serif-4/600.css';
 ---
 
-<Layout>
-	<p>Redirecting...</p>
-</Layout>
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Lucas Druckerei</title>
+  </head>
+  <body class="min-h-screen bg-white flex items-center justify-center p-8">
+    <div class="font-serif w-full max-w-md text-center">
+      <div class="border border-black rounded-2xl p-10 flex flex-col items-center gap-8">
+        
+        
+        <div class="w-full">
+          <div class="flex items-center justify-center gap-3 mb-4">
+            <div class="h-px bg-black flex-1"></div>
+            <span class="text-[10px] tracking-[0.2em] uppercase">Automatisch generierte</span>
+            <div class="h-px bg-black flex-1"></div>
+          </div>
+          
+          <h1 class="text-4xl text-black tracking-wide uppercase mb-2">Vorlagen</h1>
+          
+          <div class="flex items-center justify-center gap-3 mt-4">
+            <div class="h-px bg-black flex-1"></div>
+            <span class="text-[10px] tracking-[0.2em] uppercase">Zum Ausdrucken</span>
+            <div class="h-px bg-black flex-1"></div>
+          </div>
+        </div>
+
+        
+        <p class="text-sm text-black leading-relaxed italic max-w-xs">
+          Wähle eine Vorlage zum Drucken aus. Jede Seite wird bei jedem Laden neu generiert.
+        </p>
+
+        
+        <div class="flex flex-col gap-4 w-full">
+          <a 
+            href="/grandparent-bullshit" 
+            class="block border border-black rounded-lg py-4 px-6 hover:bg-black hover:text-white transition-colors"
+          >
+            <span class="text-lg tracking-wide uppercase">Großeltern Bingo</span>
+            <p class="text-xs mt-1 opacity-70">Bullshit-Bingo für Familientreffen</p>
+          </a>
+          
+          <a 
+            href="/picture-challenge" 
+            class="block border border-black rounded-lg py-4 px-6 hover:bg-black hover:text-white transition-colors"
+          >
+            <span class="text-lg tracking-wide uppercase">Foto Bingo</span>
+            <p class="text-xs mt-1 opacity-70">Kreative Fotoaufgaben für die Grandparent Party</p>
+          </a>
+          
+          <a 
+            href="/grandparent-party-certificates" 
+            class="block border border-black rounded-lg py-4 px-6 hover:bg-black hover:text-white transition-colors"
+          >
+            <span class="text-lg tracking-wide uppercase">Grandparent Urkunden</span>
+            <p class="text-xs mt-1 opacity-70">Auszeichnungen für die Gewinner der Foto Challenge</p>
+          </a>
+        </div>
+
+        
+        <div class="flex items-center justify-center gap-2 mt-2">
+          <span class="text-lg">✦</span>
+          <div class="w-12 h-px bg-black"></div>
+          <span class="text-lg">✦</span>
+          <div class="w-12 h-px bg-black"></div>
+          <span class="text-lg">✦</span>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  body {
+    font-family: 'Source Serif 4', serif;
+  }
+</style>

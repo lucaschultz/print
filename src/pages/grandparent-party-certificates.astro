@@ -1,0 +1,42 @@
+---
+import Certificate from '../components/Certificate.astro';
+import PortraitLayout from '../layouts/PortraitLayout.astro';
+
+const title = "Ehrenurkunde";
+const titleAccessories = {
+  top: "Grandparent Party",
+  bottom: "Älteste Person des Abends"
+}
+
+const places = [
+  {
+    place: 1,
+    description: "Diese Urkunde wird verliehen an die Person, die ein durch ihre beeindruckende Lebenserfahrung und ihr ehrwürdiges Alter diesen Abend bereichert hat."
+  },
+  {
+    place: 2,
+    description: "Diese Urkunde wird verliehen an die Person, die mit Würde und Gelassenheit den zweiten Platz in der Kategorie Lebenserfahrung belegt hat."
+  },
+  {
+    place: 3,
+    description: "Diese Urkunde wird verliehen an die Person, die den ehrenvollen dritten Platz in der Altersweisheit erreicht hat."
+  }
+] as const
+
+
+
+---
+
+<PortraitLayout>
+  <!-- First Place -->
+  {places.map(({place, description}) => (
+    <section class="sheet">
+      <Certificate 
+        place={place} 
+        title={title}
+        titleAccessories={titleAccessories}
+        description={description}
+      />
+    </section>
+  ))}
+</PortraitLayout>

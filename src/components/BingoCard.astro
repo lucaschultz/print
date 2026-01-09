@@ -4,8 +4,11 @@ import QRCode from 'qrcode';
 interface Props {
   items: string[];
   cardNumber: number;
-  topTitle?: string;
-  bottomTitle?: string;
+  title?: string;
+  titleAccessories?: {
+    top?: string;
+    bottom?: string;
+  };
   description?: string;
   qrCodeUrl?: string;
 }
@@ -13,8 +16,11 @@ interface Props {
 const { 
   items, 
   cardNumber, 
-  topTitle = "Großeltern",
-  bottomTitle = "Frühvergreiste Edition",
+  title = "Bingo",
+  titleAccessories = {
+    top: "Großeltern",
+    bottom: "Frühvergreiste Edition"
+  },
   description = "Oma fragt schon wieder, ob du genug isst? Opa erzählt zum 100. Mal die gleiche Geschichte? Wenn du eine Reihe oder Diagonale voll hast, ruf laut \"Bingo!\" und verteile 4 Shots.",
   qrCodeUrl
 } = Astro.props;
@@ -51,19 +57,21 @@ if (qrCodeUrl) {
     <!-- Header -->
     <div class="text-center mt-4">
       <!-- Decorative divider above -->
-      <div class="flex items-center justify-center gap-3 mb-3 max-w-[280px] mx-auto">
-        <div class="h-px bg-black flex-1"></div>
-        <span class="text-[10px] tracking-[0.2em] uppercase">{topTitle}</span>
-        <div class="h-px bg-black flex-1"></div>
+      <div class="flex items-center justify-center gap-3 mb-3 max-w-[280px] mx-auto relative">
+        <div class="h-px bg-black absolute inset-x-0 top-1/2"></div>
+        {titleAccessories?.top && (
+          <span class="text-[10px] tracking-[0.2em] uppercase bg-white px-2 z-10">{titleAccessories.top}</span>
+        )}
       </div>
       
-      <h1 class="text-4xl text-black tracking-wide uppercase">Bingo</h1>
+      <h1 class="text-4xl text-black tracking-wide uppercase">{title}</h1>
       
       <!-- Decorative divider below -->
-      <div class="flex items-center justify-center gap-3 mt-3 max-w-[280px] mx-auto">
-        <div class="h-px bg-black flex-1"></div>
-        <span class="text-[10px] tracking-[0.2em] uppercase">{bottomTitle}</span>
-        <div class="h-px bg-black flex-1"></div>
+      <div class="flex items-center justify-center gap-3 mt-3 max-w-[280px] mx-auto relative">
+        <div class="h-px bg-black absolute inset-x-0 top-1/2"></div>
+        {titleAccessories?.bottom && (
+          <span class="text-[10px] tracking-[0.2em] uppercase bg-white px-2 z-10">{titleAccessories.bottom}</span>
+        )}
       </div>
     </div>
 

@@ -1,0 +1,42 @@
+---
+interface Props {
+  text: string;
+  id: string;
+  radius?: number;
+}
+
+const { text, id, radius = 70 } = Astro.props;
+const size = 200;
+const center = size / 2;
+---
+
+<svg class="absolute inset-0 w-full h-full" viewBox={`0 0 ${size} ${size}`}>
+  <defs>
+    <!-- Top semicircle (left to right) -->
+    <path 
+      id={`${id}-top`}
+      d={`M ${center - radius}, ${center} a ${radius},${radius} 0 1,1 ${radius * 2},0`}
+      fill="none"
+    />
+    <!-- Bottom semicircle (right to left, flipped for readability) -->
+    <path 
+      id={`${id}-bottom`}
+      d={`M ${center + radius}, ${center} a ${radius},${radius} 0 1,1 -${radius * 2},0`}
+      fill="none"
+    />
+  </defs>
+  
+  <!-- Top text -->
+  <text style={`font-size: 16px; text-transform: uppercase; letter-spacing: 0.3em; fill: black; font-family: 'Source Serif 4', serif;`}>
+    <textPath href={`#${id}-top`} startOffset="50%" text-anchor="middle">
+      {text}
+    </textPath>
+  </text>
+  
+  <!-- Bottom text -->
+  <text style={`font-size: 16px; text-transform: uppercase; letter-spacing: 0.3em; fill: black; font-family: 'Source Serif 4', serif;`}>
+    <textPath href={`#${id}-bottom`} startOffset="50%" text-anchor="middle">
+      {text}
+    </textPath>
+  </text>
+</svg>

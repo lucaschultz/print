@@ -1,5 +1,6 @@
 ---
 import BingoCard from '../components/BingoCard.astro';
+import RulesCard from '../components/RulesCard.astro';
 import Layout from '../layouts/Layout.astro';
 import { generateBingoCards, pictureChallengeItems } from '../data/bingoItems';
 
@@ -15,19 +16,32 @@ for (let i = 0; i < bingoCards.length; i += 2) {
 
 <Layout>
 	{sheets.map((sheetCards, sheetIndex) => (
-		<section class="sheet">
-			{sheetCards.map((items, cardIndex) => (
+		<>
+			{/* Bingo cards page (front) */}
+			<section class="sheet">
+				{sheetCards.map((items, cardIndex) => (
+					<div class="bingo-cell">
+						<BingoCard 
+							items={items} 
+							cardNumber={sheetIndex * 2 + cardIndex + 1}
+						title="Foto Bingo"
+						titleAccessories={{ bottom: "Grandparent Edition" }}
+							description={`Du feierst die rüstigen Rentner hier? Lade deine Beweisfotos per QR-Code hoch! Wer zuerst ein Bingo hat, gewinnt eine Urkunde und einen Preis. Los geht's – mache ein Selfie mit ...`}
+							qrCodeUrl='https://chat.whatsapp.com/CbtTFUshULl7INhjxsQPwN'
+						/>
+					</div>
+				))}
+			</section>
+			
+			{/* Rules page (back) */}
+			<section class="sheet">
 				<div class="bingo-cell">
-					<BingoCard 
-						items={items} 
-						cardNumber={sheetIndex * 2 + cardIndex + 1}
-						topTitle="Foto Challenge"
-						bottomTitle="Oma & Opa Edition"
-						description={`Mach ein Foto mit... Wer zuerst eine Reihe oder Diagonale voll hat, ruft "Bingo!" und verteilt 4 Shots. Fotos müssen bewiesen werden!`}
-            qrCodeUrl='https://test.com'
-					/>
+					<RulesCard />
 				</div>
-			))}
-		</section>
+				<div class="bingo-cell">
+					<RulesCard />
+				</div>
+			</section>
+		</>
 	))}
 </Layout>
